@@ -22,38 +22,46 @@ class UserController extends ApiController
      * @param Request $request
      * @return mixed
      */
- public function list(Request $request){
-     $validator = Validator::make($request->all(), [
-         'page' => 'numeric',
-         'limit' => 'numeric'
-     ]);
+    public function list(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'page' => 'numeric',
+            'pageSize' => 'numeric'
+        ]);
+        if ($validator->fails()) {
+            return $this->message('请求参数有误', $status = 'error');
+        };
+        $sortBy = $request->input('sortBy');
+        $whereBy =  $request->input('searchBy');
+        $data = User::when($sortBy, function ($query) use ($sortBy) {
+            return $query->orderByRaw($sortBy);
+        }, function ($query) {
+            return $query->orderByRaw('created_at desc');
+        })->when($whereBy, function ($query) use ($whereBy) {
+            return $query->whereRaw($whereBy);
+        })->paginate($request->input('pageSize') ?: 20);
+        return $this->success($data);
+    }
 
-     if($validator->fails()) {
-         return $this->message('请求参数有误',$status='error');
-     };
 
-     $users = User::orderBy("created_at",'desc')->paginate($request->input('limit') ?: 20);
-     return $this->success($users);
- }
+    public function del(Request $request)
+    {
 
+        $validator = Validator::make($request->all(), [
+            'id' => 'required',
+        ]);
 
- public function del(Request $request){
-
-     $validator = Validator::make($request->all(), [
-         'id'    => 'required',
-     ]);
-
-     if($validator->fails()) {
-         return $this->message('请求参数有误',$status='error');
-     };
-     $user =  User::find($request->input("id"));
-     if($user && $user->delete()){
-       $message = '操作成功';
-       $status = 'success';
-     }else{
-       $message = '操作失败';
-       $status = 'error';
-     };
-      return $this->message($message,$status);
- }
+        if ($validator->fails()) {
+            return $this->message('请求参数有误', $status = 'error');
+        };
+        $user = User::find($request->input("id"));
+        if ($user && $user->delete()) {
+            $message = '操作成功';
+            $status = 'success';
+        } else {
+            $message = '操作失败';
+            $status = 'error';
+        };
+        return $this->message($message, $status);
+    }
 }

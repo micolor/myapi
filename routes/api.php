@@ -14,8 +14,7 @@ use Illuminate\Http\Request;
 */
 
 //登入获取token
-Route::any('/login','Api\LoginController@login');
-
+Route::post('/login','Api\LoginController@login');
 //需要客户端认证后才能访问
 Route::middleware('client')->group(function (){
 
@@ -30,8 +29,8 @@ Route::middleware('client')->group(function (){
     });
 //});
 
-Route::any('cors/test',function(){
-    return response('111');
+Route::any('/test',function(Request $request){
+    return response($request);
 });
 
 
