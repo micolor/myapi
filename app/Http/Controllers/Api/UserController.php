@@ -24,13 +24,6 @@ class UserController extends ApiController
      */
     public function list(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'page' => 'numeric',
-            'pageSize' => 'numeric'
-        ]);
-        if ($validator->fails()) {
-            return $this->message('请求参数有误', $status = 'error');
-        };
         $sortBy = $request->input('sortBy');
         $whereBy =  $request->input('searchBy');
         $data = User::when($sortBy, function ($query) use ($sortBy) {

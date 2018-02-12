@@ -59,5 +59,6 @@ class Kernel extends HttpKernel
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'client' =>\Laravel\Passport\Http\Middleware\CheckClientCredentials::class,
+        'ctablelist'=> \App\Http\Middleware\Ctablelist::class,
     ];
 }

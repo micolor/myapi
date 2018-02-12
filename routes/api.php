@@ -23,7 +23,7 @@ Route::middleware('client')->group(function (){
 //需要登录认证后访问
 //Route::middleware('auth:api')->group(function (){
     Route::prefix('user')->group(function (){
-        Route::any('/list','Api\UserController@list');
+        Route::any('/list','Api\UserController@list')->middleware('ctablelist');
         Route::any('/del','Api\UserController@del');
         Route::any('/index','Api\UserController@list');
     });
