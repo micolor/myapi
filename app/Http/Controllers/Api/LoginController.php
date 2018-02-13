@@ -39,7 +39,7 @@ class LoginController extends ApiController
             $post = ['form_params' => [
                 'grant_type' => 'password',
                 'client_id' => '2',
-                'client_secret' => '6I7eZsxWVpnXatbpe6NEWN4Ka2C0KCl6clKtRZsq',
+                'client_secret' => 'psi1tc9zVIPDSXVSy4nm94BXOv0AlMKikReAN40R',
                 'username' => $request->get('username'),
                 'password' => $request->get('password'),
                 'scope' => '*']

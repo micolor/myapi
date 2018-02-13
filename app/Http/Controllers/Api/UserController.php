@@ -22,7 +22,7 @@ class UserController extends ApiController
      * @param Request $request
      * @return mixed
      */
-    public function list(Request $request)
+    public function index(Request $request)
     {
         $sortBy = $request->input('sortBy');
         $whereBy =  $request->input('searchBy');
