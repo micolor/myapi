@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Support\Facades\Validator;
 use App\Api\Helpers\Api\ApiResponse;
 
-class Ctablelist
+class TableList
 {
     use ApiResponse;
 
