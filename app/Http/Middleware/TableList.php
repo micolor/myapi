@@ -2,6 +2,8 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Models;
+use App\models\Permission;
 use Closure;
 use Illuminate\Support\Facades\Validator;
 use App\Api\Helpers\Api\ApiResponse;
@@ -74,7 +76,7 @@ class TableList
      */
     public function searchByLike($data)
     {
-        return $data['name'] .' like \'%'.$data['val'].'%\'';
+        return $data['name'] . ' like \'%' . $data['val'] . '%\'';
     }
 
     /**
@@ -84,7 +86,7 @@ class TableList
      */
     public function searchByLikeL($data)
     {
-        return $data['name'] . ' like \''.$data['val'].'%\'';
+        return $data['name'] . ' like \'' . $data['val'] . '%\'';
     }
 
     /**
@@ -104,7 +106,7 @@ class TableList
      */
     public function searchByLt($data)
     {
-        return $data['name'] . ' <  '.$data['val'].'\'';
+        return $data['name'] . ' <  ' . $data['val'] . '\'';
     }
 
     /**
@@ -114,7 +116,7 @@ class TableList
      */
     public function searchByLte($data)
     {
-        return $data['name'] . ' <=  '.$data['val'].'\'';
+        return $data['name'] . ' <=  ' . $data['val'] . '\'';
     }
 
     /**
@@ -124,7 +126,7 @@ class TableList
      */
     public function searchByGt($data)
     {
-        return $data['name'] . ' >  '.$data['val'].'\'';
+        return $data['name'] . ' >  ' . $data['val'] . '\'';
     }
 
     /**
@@ -134,7 +136,7 @@ class TableList
      */
     public function searchByGtE($data)
     {
-        return $data['name'] . ' >=  '.$data['val'].'\'';
+        return $data['name'] . ' >=  ' . $data['val'] . '\'';
     }
 
     /**
@@ -145,8 +147,8 @@ class TableList
     public function searchByBetween($data)
     {
         $bl = date("Y-m-d H:i:s", strtotime($data['val'][0]));
-        $br = date("Y-m-d H:i:s", strtotime($data['val'][1])+86400);
-        return $data['name'] .' > \''.$bl.'\' and '.$data['name'].' < \''.$br.'\'';
+        $br = date("Y-m-d H:i:s", strtotime($data['val'][1]) + 86400);
+        return $data['name'] . ' > \'' . $bl . '\' and ' . $data['name'] . ' < \'' . $br . '\'';
     }
 
     /**
@@ -156,6 +158,6 @@ class TableList
      */
     public function searchByEq($data)
     {
-        return $data['name'] . '= \''.$data['val'].'\'';
+        return $data['name'] . '= \'' . $data['val'] . '\'';
     }
 }

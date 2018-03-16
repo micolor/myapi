@@ -9,12 +9,13 @@
 
 namespace App\Http\Controllers\api;
 
+use App\User;
 use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Spatie\Permission\Models\Role;
 
-class RoleController extends ApiController
+class RolesController extends ApiController
 {
     use Authorizable;
 
@@ -73,6 +74,8 @@ class RoleController extends ApiController
 
     /**
      * 编辑角色
+     * @param Request $request
+     * @return mixed
      */
     public function edit(Request $request)
     {
@@ -94,6 +97,35 @@ class RoleController extends ApiController
             $message = '操作失败';
             $status = 'error';
         };
+        return $this->message($message, $status);
+    }
+
+
+    /**
+     * 角色授权给用户
+     * @param Request $request
+     * @return mixed
+     */
+    public function role2user(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'uid' => 'required',
+            'roleName' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return $this->message('请求参数有误', $status = 'error');
+        };
+        $id = $request->input('uid');
+        $roleName = $request->input('roleName');
+        $user = User::find($id);
+        if ($user) {
+            $user->syncRoles($roleName);
+            $message = '操作成功';
+            $status = 'success';
+        } else {
+            $message = '操作失败';
+            $status = 'error';
+        }
         return $this->message($message, $status);
     }
 }

@@ -11,8 +11,7 @@ class User extends Authenticatable
 {
     use HasApiTokens, Notifiable,HasRoles;
     protected $guarded = 'web';
-
-
+    protected $guard_name = 'api';
     /**
      * 自定义用Passport授权登录：用户名+密码
      * @param $username
