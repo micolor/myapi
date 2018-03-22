@@ -27,11 +27,10 @@ Route::post('/login', 'Api\LoginController@login');
 
 //需要客户端认证后才能访问
 Route::middleware('client')->group(function () {
-
 });
 
 //需要登录认证后访问
-Route::middleware('auth:api')->group(function () {
+Route::middleware('auth:api', 'checkAuth')->group(function () {
     //用户管理
     Route::prefix('user')->group(function () {
         Route::post('/index', 'Api\UserController@index')->middleware('tableList');
@@ -52,13 +51,13 @@ Route::middleware('auth:api')->group(function () {
     });
 
     //菜单管理
-    Route::prefix('models')->group(function () {
-        Route::post('/index', 'Api\ModelsController@index');
-        Route::post('/add', 'Api\ModelsController@add');
-        Route::post('/del', 'Api\ModelsController@del');
-        Route::post('/edit', 'Api\ModelsController@edit');
-        Route::post('/detail', 'Api\ModelsController@detail');
-        Route::post('/sort', 'Api\ModelsController@sort');
+    Route::prefix('module')->group(function () {
+        Route::post('/index', 'Api\ModuleController@index');
+        Route::post('/add', 'Api\ModuleController@add');
+        Route::post('/del', 'Api\ModuleController@del');
+        Route::post('/edit', 'Api\ModuleController@edit');
+        Route::post('/detail', 'Api\ModuleController@detail');
+        Route::post('/sort', 'Api\ModuleController@sort');
     });
 });
 

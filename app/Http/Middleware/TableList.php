@@ -2,16 +2,12 @@
 
 namespace App\Http\Middleware;
 
-use App\Models\Models;
-use App\models\Permission;
+use App\Api\Helpers\Api\ApiResponse;
 use Closure;
 use Illuminate\Support\Facades\Validator;
-use App\Api\Helpers\Api\ApiResponse;
 
 class TableList
 {
-    use ApiResponse;
-
     /**
      * Handle an incoming request.
      *
@@ -19,6 +15,7 @@ class TableList
      * @param  \Closure $next
      * @return mixed
      */
+    use ApiResponse;
     public function handle($request, Closure $next)
     {
         $validator = Validator::make($request->all(), [

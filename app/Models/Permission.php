@@ -16,7 +16,8 @@ class Permission extends \Spatie\Permission\Models\Permission
     static function modelsList($parentId, $role)
     {
         $permission = DB::table('permissions')
-            ->leftJoin('models', 'permissions.id', '=', 'models.id')->where('models.parentid', '=', $parentId)->select('models.*', 'permissions.name as permissionName')
+            ->leftJoin('menus', 'permissions.id', '=', 'menus.id')->where('menus.parentid', '=', $parentId)->select('menus.*', 'permissions.name as permissionName')
+            ->orderBy('sort', 'asc')
             ->get();
         foreach ($permission as $k => $v) {
             if ($role->hasPermissionTo($v->permissionName)) {
@@ -39,7 +40,7 @@ class Permission extends \Spatie\Permission\Models\Permission
     static function findPermissionName($url)
     {
         $data = DB::table('permissions')
-            ->leftJoin('models', 'permissions.id', '=', 'models.id')->where('models.url', '=', $url)->select('permissions.name')
+            ->leftJoin('menus', 'permissions.id', '=', 'menus.id')->where('menus.url', '=', $url)->select('permissions.name')
             ->first();
         $name = null;
         if($data) $name = $data->name;

@@ -10,11 +10,10 @@ namespace App\Http\Controllers\Api;
 
 
 use App\User;
+use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
-use GuzzleHttp\Client;
 
 class LoginController extends ApiController
 {
